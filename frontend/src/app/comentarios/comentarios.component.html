@@ -1,4 +1,19 @@
-<po-page-detail
-    p-title="Cadastro de comentários">
+<po-page-detail [p-title]="title">
 
-</po-page-detail>>
+    <po-button class="po-sm-6 po-md-4 po-lg-2 po-xl-2" p-label="Cadastrar novo Comentário"
+        (p-click)="navegarParaComentarios()">
+    </po-button>
+<br>
+    <!-- lista de comentários-->
+    <po-list-view p-property-title="user" [p-items]="lsComentarios">
+
+        <ng-template p-list-view-content-template let-item>
+            <div class="po-row">
+                <po-info class="po-md-12" p-label="Ponto Turístico" [p-value]="item.pontoTuristico"></po-info>
+            </div>
+            <div class="po-row">
+                <po-info class="po-md-12" p-label="Comentário" [p-value]="item.comentario"></po-info>
+            </div>
+        </ng-template>
+    </po-list-view>
+</po-page-detail>

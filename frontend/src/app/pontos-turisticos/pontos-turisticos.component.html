@@ -1,4 +1,7 @@
-<po-page-default
-    p-title="Cadastro de Pontos Turísticos">
-    <po-table></po-table>
+<po-page-default p-title="Cadastro de Pontos Turísticos">
+    <po-button class="po-sm-6 po-md-4 po-lg-2 po-xl-2" p-label="Cadastrar novo Ponto Turístico"
+        (p-click)="navegarParaPontoTuristico()">
+    </po-button>
+    <po-table class="po-sm-12 po-pt-2" p-container="true" [p-actions-right]="true" [p-actions]="lsActions"
+        [p-columns]="lsColumns" [p-items]="lsPontoTuristico"></po-table>
 </po-page-default>
