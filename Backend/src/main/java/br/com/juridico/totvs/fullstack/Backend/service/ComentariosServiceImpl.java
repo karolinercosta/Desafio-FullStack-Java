@@ -26,10 +26,10 @@ public class ComentariosServiceImpl implements ComentariosService {
                 "User2", "1", "Este é um comentário1", calendar.getTime()
         ));
         this.listComentarios.add(new Comentarios(3L,
-                "User3", "2", "Este é um comentário2", calendar.getTime()
+                "User3", "1", "Este é um comentário2", calendar.getTime()
         ));
         this.listComentarios.add(new Comentarios(4L,
-                "User4", "2", "Este é um comentário3", calendar.getTime()
+                "User4", "1", "Este é um comentário3", calendar.getTime()
         ));
         this.listComentarios.add(new Comentarios(5L,
                 "User5", "3", "Este é um comentário4", calendar.getTime()
