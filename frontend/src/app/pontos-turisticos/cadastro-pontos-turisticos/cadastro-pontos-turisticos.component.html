@@ -12,7 +12,7 @@
             <po-input class="po-sm-12 po-md-6" formControlName="melhorEstacao" p-label="Melhor Estação">
             </po-input>
         </div>
-        <po-textarea class="po-sm-12" formControlName="resumo" p-label="Resumo">
+        <po-textarea class="po-sm-12" formControlName="resumo" p-label="Resumo" [p-maxlength]="pmaxlength">
         </po-textarea>
     </form>
 
@@ -22,23 +22,29 @@
     </div>
     <div class="po-mt-2">
         <po-container>
+          <!-- comentários fixo se não houverem nenhum no ponto turistico -->
             <div *ngIf="lsComentarios.length == 0">
-                <b class="po-sm-12" style="margin: 10px;">Seja o primeiro a comentar!</b>
+                <b class="po-sm-12" style="margin: 10px;">Nenhum Comentário sobre o Ponto Turistico, seja o primeiro a comentar!</b>
                 <po-button class="po-sm-2" style="margin: 10px;" p-label="Cadastrar Novo Comentário" (p-click)="navegarParaComentarios()">
                 </po-button>
             </div>
+              <!-- lista de todos os comentários se existirem-->
 			<div *ngIf="lsComentarios.length > 0">
 				<po-button class="po-sm-2" style="margin: 10px;" p-label="Cadastrar Novo Comentário" (p-click)="navegarParaComentarios()">
                 </po-button>
-				<po-list-view class="po-row"  [p-items]="lsComentarios">
+				<po-list-view class="po-row"  [p-items]="lsComentarios" [p-actions]="actions">
 					<ng-template p-list-view-content-template let-item>
-						<div class="po-row" style="width: 80vw;">
+						<div class="po-row" style="width: 85vw;">
 							<po-avatar class="po-md-2" p-src="https://po-ui.io/assets/graphics/logo-po.png"></po-avatar>
 							<div class="po-md-10">
 								<po-info p-label="Usuário" [p-value]="item.user"></po-info>
-								<po-info p-label="Ponto Turístico" [p-value]="item.data"></po-info>
-								<po-info p-label="Comentário" [p-value]="item.comentario"></po-info>
+								<po-info p-label="Data" [p-value]="item.data"></po-info>
+								
 							</div>
+                            <div class="po-md-10">
+                                <po-info p-label="Comentário" [p-value]="item.comentario"></po-info>
+                            </div>
+                           
 						</div>
 					</ng-template>
 				</po-list-view>

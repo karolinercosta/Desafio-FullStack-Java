@@ -15,7 +15,9 @@
         <po-textarea 
             class="po-sm-12"
             formControlName="comentario"
-            p-label="Comentário">
+            p-label="Comentário"
+            [p-maxlength]="pmaxlength"
+            >
         </po-textarea>
     </form>
     <div class="po-row po-pt-2 po-mb-2" style="justify-content: flex-end;">

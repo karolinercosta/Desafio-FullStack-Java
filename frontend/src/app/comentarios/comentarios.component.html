@@ -6,16 +6,19 @@
     </div>
  
     <!-- lista de comentários-->
-    <po-list-view class="po-row" p-property-title="user" [p-items]="lsComentarios">
+    <po-list-view class="po-row" p-property-title="pontoTuristico" [p-items]="lsComentarios" [p-actions]="actions">
         <ng-template p-list-view-content-template let-item>
             <div class="po-row" style="width: 90vw;">
                 <po-avatar class="po-md-2" p-src="https://po-ui.io/assets/graphics/logo-po.png"></po-avatar>
                 <div class="po-md-10">
-                    <po-info class="po-md-12" p-label="Ponto Turístico" [p-value]="item.pontoTuristico"></po-info>
-
-
-                    <po-info class="po-md-12" p-label="Comentário" [p-value]="item.comentario"></po-info>
+                    <po-info p-label="Usuário" [p-value]="item.user"></po-info>
+                    <po-info p-label="Data" [p-value]="item.data"></po-info>
+                    
                 </div>
+                <div class="po-md-10">
+                    <po-info p-label="Comentário" [p-value]="item.comentario"></po-info>
+                </div>
+               
             </div>
         </ng-template>
     </po-list-view>

@@ -10,7 +10,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 public class PontoTuristicoServiceImpl implements PontoTuristicoService {
@@ -19,21 +18,38 @@ public class PontoTuristicoServiceImpl implements PontoTuristicoService {
     PontoTuristicoServiceImpl(){
         this.listPontoTuristico = new ArrayList<>();
         this.listPontoTuristico.add(new PontoTuristico(1L,
-                "Brasil","Brasil","1","Brasil",
-                "Brasil é um país localizado na América do Sul"
-                
-            ));
+                "Cristo Redentor", "Rio de Janeiro", "1", "Verão",
+                "O Cristo Redentor é uma estátua de Jesus Cristo localizada no Rio de Janeiro, Brasil."
+        ));
+        this.listPontoTuristico.add(new PontoTuristico(2L,
+                "Estátua da Liberdade", "Nova York", "2", "Outono",
+                "A Estátua da Liberdade é um monumento icônico localizado em Nova York, Estados Unidos."
+        ));
+        this.listPontoTuristico.add(new PontoTuristico(3L,
+                "Torre Eiffel", "Paris", "6", "Primavera",
+                "A Torre Eiffel é uma torre de ferro localizada em Paris, França."
+        ));
+        this.listPontoTuristico.add(new PontoTuristico(4L,
+                "Grande Muralha da China", "Pequim", "8", "Outono",
+                "A Grande Muralha da China é uma série de fortificações feitas de pedra, tijolo, terra batida, madeira e outros materiais."
+        ));
+
+        this.listPontoTuristico.add(new PontoTuristico(5L,
+                "Sydney Opera House", "Sydney", "9", "Verão",
+                "A Sydney Opera House é um dos edifícios de artes performáticas mais famosos e distintos do mundo."
+        ));
+
     }
 
     @Override
-    public PontoTuristicoDTO create(PontoTuristicoCreateUpdateDTO PontoTuristicoCreateUpdateDTO) {
+    public PontoTuristicoDTO create(PontoTuristicoCreateUpdateDTO pontoTuristicoCreateUpdateDTO) {
         PontoTuristico novoPontoTuristico = new PontoTuristico(
                 this.getNewId(),
-                PontoTuristicoCreateUpdateDTO.getNome(),
-                PontoTuristicoCreateUpdateDTO.getCidade(),
-                PontoTuristicoCreateUpdateDTO.getPais(),
-                PontoTuristicoCreateUpdateDTO.getMelhorEstacao(),
-                PontoTuristicoCreateUpdateDTO.getResumo());
+                pontoTuristicoCreateUpdateDTO.getNome(),
+                pontoTuristicoCreateUpdateDTO.getCidade(),
+                pontoTuristicoCreateUpdateDTO.getPais(),
+                pontoTuristicoCreateUpdateDTO.getMelhorEstacao(),
+                pontoTuristicoCreateUpdateDTO.getResumo());
 
         this.listPontoTuristico.add(novoPontoTuristico);
 
@@ -41,41 +57,42 @@ public class PontoTuristicoServiceImpl implements PontoTuristicoService {
     }
 
     @Override
-    public PontoTuristicoDTO update(Long id, PontoTuristicoCreateUpdateDTO PontoTuristicoCreateUpdateDTO) {
-        PontoTuristico PontoTuristico = this.getPontoTuristicoById(id);
-        int index = this.listPontoTuristico.indexOf(PontoTuristico);
-        if (PontoTuristico == null){
+    public PontoTuristicoDTO update(Long id, PontoTuristicoCreateUpdateDTO pontoTuristicoCreateUpdateDTO) {
+        PontoTuristico pontoTuristico = this.getPontoTuristicoById(id);
+        int index = this.listPontoTuristico.indexOf(pontoTuristico);
+        if (pontoTuristico == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        PontoTuristico.setNome(PontoTuristicoCreateUpdateDTO.getNome());
+        pontoTuristico.setNome(pontoTuristicoCreateUpdateDTO.getNome());
+        pontoTuristico.setCidade(pontoTuristicoCreateUpdateDTO.getCidade());
+        pontoTuristico.setPais(pontoTuristicoCreateUpdateDTO.getPais());
+        pontoTuristico.setMelhorEstacao(pontoTuristicoCreateUpdateDTO.getMelhorEstacao());
+        pontoTuristico.setResumo(pontoTuristicoCreateUpdateDTO.getResumo());
 
-
-        this.listPontoTuristico.set(index, PontoTuristico);
-        return new PontoTuristicoDTO(PontoTuristico);
+        this.listPontoTuristico.set(index, pontoTuristico);
+        return new PontoTuristicoDTO(pontoTuristico);
     }
 
     @Override
     public void delete(Long id) {
-        PontoTuristico PontoTuristico = this.getPontoTuristicoById(id);
-        this.listPontoTuristico.remove(PontoTuristico);
+        PontoTuristico pontoTuristico = this.getPontoTuristicoById(id);
+        this.listPontoTuristico.remove(pontoTuristico);
     }
 
     @Override
     public PontoTuristicoDTO getPontoTuristicobyId(Long id) {
-        PontoTuristico PontoTuristico = this.getPontoTuristicoById(id);
-        if (PontoTuristico == null){
+        PontoTuristico pontoTuristico = this.getPontoTuristicoById(id);
+        if (pontoTuristico == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return new PontoTuristicoDTO(PontoTuristico);
+        return new PontoTuristicoDTO(pontoTuristico);
     }
-
-
 
     @Override
     public List<PontoTuristicoDTO> getAllPontoTuristico() {
         return this.listPontoTuristico.stream()
-                .map(PontoTuristico -> new PontoTuristicoDTO(PontoTuristico))
+                .map(pontoTuristico -> new PontoTuristicoDTO(pontoTuristico))
                 .collect(Collectors.toList());
     }
 
@@ -104,5 +121,4 @@ public class PontoTuristicoServiceImpl implements PontoTuristicoService {
                 .anyMatch(x -> x.getId().equals(id)) ?
                 index.get() - 1 : -1;
     }
-
 }

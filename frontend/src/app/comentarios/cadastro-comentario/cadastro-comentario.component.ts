@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PoNotificationService } from '@po-ui/ng-components';
+import { max } from 'rxjs';
 import { HttpService } from 'src/app/service/http-service.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class CadastroComentarioComponent implements OnInit {
   formComentario: FormGroup;
   title: string = "Novo Comentário";
   lsPontoTuristico: Array<{ value: string, label: string }> = [];
+  pmaxlength: number = 500;
 
   constructor(
     private formBuilder: FormBuilder,

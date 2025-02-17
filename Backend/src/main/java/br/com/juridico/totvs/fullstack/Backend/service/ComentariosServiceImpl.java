@@ -22,6 +22,33 @@ public class ComentariosServiceImpl implements ComentariosService {
         this.listComentarios.add(new Comentarios(1L,
                 "User1", "1", "Este é um comentário", calendar.getTime()
         ));
+        this.listComentarios.add(new Comentarios(2L,
+                "User2", "1", "Este é um comentário1", calendar.getTime()
+        ));
+        this.listComentarios.add(new Comentarios(3L,
+                "User3", "2", "Este é um comentário2", calendar.getTime()
+        ));
+        this.listComentarios.add(new Comentarios(4L,
+                "User4", "2", "Este é um comentário3", calendar.getTime()
+        ));
+        this.listComentarios.add(new Comentarios(5L,
+                "User5", "3", "Este é um comentário4", calendar.getTime()
+        ));
+        this.listComentarios.add(new Comentarios(6L,
+                "User6", "3", "Este é um comentário5", calendar.getTime()
+        ));
+        this.listComentarios.add(new Comentarios(7L,
+                "User7", "4", "Este é um comentário6", calendar.getTime()
+        ));
+        this.listComentarios.add(new Comentarios(8L,
+                "User8", "4", "Este é um comentário7", calendar.getTime()
+        ));
+        this.listComentarios.add(new Comentarios(9L,
+                "User9", "5", "Este é um comentário8", calendar.getTime()
+        ));
+        this.listComentarios.add(new Comentarios(10L,
+                "User10", "5", "Este é um comentário9", calendar.getTime()
+        ));
     }
 
     @Override

@@ -22,7 +22,6 @@ export class PontosTuristicosComponent implements OnInit {
 
   ngOnInit(): void {
     this.buscaDadosPais();
-    this.carregarPontoTuristico();
   }
 
   navegarParaPontoTuristico(codigoPontoTuristico: string = "") {
@@ -53,14 +52,15 @@ export class PontosTuristicosComponent implements OnInit {
             id: item.id,
             nome: item.nome,
             cidade: item.cidade,
-            pais: item.pais,
+            pais: this.getPais(item.pais),
             melhorEstacao: item.melhorEstacao,
-            resumo: item.resumo 
+            resumo: item.resumo
           };
           registros.push(novoPontoTuristico);
         });
 
         this.lsPontoTuristico = [...registros];
+
       },
       error: (erro) => {
         this.poNotification.error(erro);
@@ -68,7 +68,6 @@ export class PontosTuristicosComponent implements OnInit {
     });
 
   }
-
 
   deletarCadastro(id: string): void {
     this.httpService.delete('pontos-turisticos/' + id).subscribe({
@@ -117,8 +116,8 @@ export class PontosTuristicosComponent implements OnInit {
             label: item.nome
           });
         });
-
         this.lsPais = [...registros];
+        this.carregarPontoTuristico(); // Chama carregarPontoTuristico após carregar os dados de pais
       },
       error: (erro) => {
         this.poNotification.error(erro);
@@ -126,6 +125,11 @@ export class PontosTuristicosComponent implements OnInit {
     });
   }
 
+  getPais(value: string): string {
+    // encontrar o pais pelo value
+    let pais = this.lsPais.find(pais => pais.value == value);
+    return pais ? pais.label : '';
+  }
 }
 
 interface PontoTuristico {

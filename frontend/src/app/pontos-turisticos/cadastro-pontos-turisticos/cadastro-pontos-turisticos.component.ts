@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PoNotificationService } from '@po-ui/ng-components';
+import { PoNotificationService, PoTableAction } from '@po-ui/ng-components';
 import { HttpService } from 'src/app/service/http-service.service';
 
 @Component({
@@ -15,6 +15,8 @@ export class CadastroPontosTuristicosComponent implements OnInit {
   title: string = "Novo cadastro de Ponto Turístico";
   lsTipo: Array<{ value: string, label: string }> = [];
   lsComentarios: Array<Comentarios> = [];
+  actions: Array<PoTableAction>;
+  pmaxlength: number = 500;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -126,12 +128,12 @@ export class CadastroPontosTuristicosComponent implements OnInit {
 
   // buscando os dados dos comentários
   buscaComentarios() {
+    this.carregarActions();
     if (this.idPontoTuristico) {
       this.http.get(`comentarios/ponto-turistico/${this.idPontoTuristico}`).subscribe({
         next: (resposta) => {
           let registros: Array<Comentarios> = [];
           resposta.forEach(item => {
-            console.log(item);
             registros.push({
               id: item.id,
               user: item.user,
@@ -154,8 +156,37 @@ export class CadastroPontosTuristicosComponent implements OnInit {
     }
   }
 
-  navegarParaComentarios() {
-    this.router.navigate(['/comentario/cadastro'], { relativeTo: this.route });
+  navegarParaComentarios(codigoComentario: string = "") {
+    this.router.navigate(['/comentario/cadastro',codigoComentario ], { relativeTo: this.route });
+  }
+
+  // carregar as ações dos comentários
+  carregarActions() {
+    this.actions = [
+      {
+        label: 'Editar',
+        icon: 'po-icon-edit',
+        action: (row: Comentarios) => { this.navegarParaComentarios(row.id) }
+      },
+      {
+        label: 'Excluir',
+        icon: 'po-icon-delete',
+        type: 'danger',
+        action: (row: Comentarios) => { this.excluirComentario(row.id) }
+      }
+    ];
+  }
+
+  excluirComentario(id: string) {
+    this.http.delete(`comentarios/${id}`).subscribe({
+      next: () => {
+        this.poNotification.success("Comentário excluído com sucesso!");
+        this.buscaComentarios();
+      },
+      error: (erro) => {
+        this.poNotification.error("Erro ao excluir comentário: " + erro.message);
+      }
+    });
   }
 }
 

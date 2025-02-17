@@ -10,7 +10,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 public class PaisServiceImpl implements PaisService {
@@ -18,11 +17,16 @@ public class PaisServiceImpl implements PaisService {
 
     PaisServiceImpl(){
         this.listPais = new ArrayList<>();
-        this.listPais.add(new Pais(1L,
-                "Brasil",
-                "BRA",
-                "América do sul",
-                55));
+        this.listPais.add(new Pais(1L, "Brasil", "BRA", "América do Sul", 55));
+        this.listPais.add(new Pais(2L, "Estados Unidos", "USA", "América do Norte", 1));
+        this.listPais.add(new Pais(3L, "Canadá", "CAN", "América do Norte", 1));
+        this.listPais.add(new Pais(4L, "Argentina", "ARG", "América do Sul", 54));
+        this.listPais.add(new Pais(5L, "Alemanha", "DEU", "Europa", 49));
+        this.listPais.add(new Pais(6L, "França", "FRA", "Europa", 33));
+        this.listPais.add(new Pais(7L, "Japão", "JPN", "Ásia", 81));
+        this.listPais.add(new Pais(8L, "China", "CHN", "Ásia", 86));
+        this.listPais.add(new Pais(9L, "Austrália", "AUS", "Oceania", 61));
+        this.listPais.add(new Pais(10L, "África do Sul", "ZAF", "África", 27));
     }
 
     @Override
@@ -111,5 +115,4 @@ public class PaisServiceImpl implements PaisService {
                 .anyMatch(x -> x.getId().equals(id)) ?
                 index.get() - 1 : -1;
     }
-
 }
