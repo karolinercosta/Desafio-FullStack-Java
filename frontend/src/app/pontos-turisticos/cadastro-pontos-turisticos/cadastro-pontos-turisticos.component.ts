@@ -139,6 +139,7 @@ export class CadastroPontosTuristicosComponent implements OnInit {
               user: item.user,
               pontoTuristico: item.pontoTuristico,
               comentario: item.comentario,
+              // transformando a data para o formato pt-BR
               data: new Date(item.data).toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' })
             });
           });
@@ -147,6 +148,7 @@ export class CadastroPontosTuristicosComponent implements OnInit {
         },
         error: (erro) => {
           if (erro.status === 404) {
+            // Caso não encontre comentários, exibe mensagem de alerta
             this.poNotification.warning("Nenhum comentário encontrado para este ponto turístico.");
           } else {
             this.poNotification.error("Erro ao buscar comentários: " + erro.message);
@@ -160,7 +162,7 @@ export class CadastroPontosTuristicosComponent implements OnInit {
     this.router.navigate(['/comentario/cadastro',codigoComentario ], { relativeTo: this.route });
   }
 
-  // carregar as ações dos comentários
+  // Carregar as ações dos comentários
   carregarActions() {
     this.actions = [
       {
