@@ -107,7 +107,6 @@ export class CadastroComentarioComponent implements OnInit {
 
   enviarPut() {
     this.formComentario.patchValue({ data: new Date().toISOString() });
-    console.log(this.formComentario.value);
     this.http.put('comentarios/' + this.idComentario, this.formComentario.value).subscribe({
       next: (resposta) => {
         this.poNotification.success("Registro atualizado com sucesso!");

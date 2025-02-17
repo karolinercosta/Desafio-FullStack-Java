@@ -31,7 +31,6 @@ export class ComentariosComponent implements OnInit {
       next: (resposta) => {
         let registros: Array<Comentario> = [];
         resposta.forEach(item => {
-          console.log(item);
           let novoComentario: Comentario = {
             id: item.id,
             user: item.user,
