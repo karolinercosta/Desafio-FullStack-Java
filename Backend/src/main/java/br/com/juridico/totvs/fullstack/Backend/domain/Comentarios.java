@@ -1,6 +1,7 @@
 package br.com.juridico.totvs.fullstack.Backend.domain;
 
 import br.com.juridico.totvs.fullstack.Backend.service.dto.ComentariosDTO;
+import java.util.Date;
 
 public class Comentarios {
 
@@ -8,12 +9,14 @@ public class Comentarios {
     private String user;
     private String pontoTuristico;
     private String comentario;
+    private Date data;
 
-    public Comentarios(Long id, String user, String pontoTuristico, String comentario) {
+    public Comentarios(Long id, String user, String pontoTuristico, String comentario, Date data) {
         this.id = id;
         this.user = user;
         this.pontoTuristico = pontoTuristico;
         this.comentario = comentario;
+        this.data = data;
     }
 
     public Comentarios(ComentariosDTO comentariosDTO) {
@@ -21,6 +24,7 @@ public class Comentarios {
         this.user = comentariosDTO.getUser();
         this.pontoTuristico = comentariosDTO.getPontoTuristico();
         this.comentario = comentariosDTO.getComentario();
+        this.data = comentariosDTO.getData();
     }
 
     public Long getId() {
@@ -53,5 +57,13 @@ public class Comentarios {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
 }

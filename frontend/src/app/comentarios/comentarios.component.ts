@@ -31,11 +31,13 @@ export class ComentariosComponent implements OnInit {
       next: (resposta) => {
         let registros: Array<Comentario> = [];
         resposta.forEach(item => {
+          console.log(item);
           let novoComentario: Comentario = {
             id: item.id,
             user: item.user,
             comentario: item.comentario,
             pontoTuristico: item.pontoturistico,
+            data: item.data
           }
           registros.push(novoComentario);
         })
@@ -56,4 +58,5 @@ interface Comentario{
 	user: string,
 	pontoTuristico: string,
 	comentario: string,
+  data: string
 }

@@ -17,8 +17,10 @@ public class ComentariosServiceImpl implements ComentariosService {
 
     public ComentariosServiceImpl(){
         this.listComentarios = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2025, Calendar.FEBRUARY, 15);
         this.listComentarios.add(new Comentarios(1L,
-                "User1", "1", "Este é um comentário"
+                "User1", "1", "Este é um comentário", calendar.getTime()
         ));
     }
 
@@ -28,7 +30,8 @@ public class ComentariosServiceImpl implements ComentariosService {
                 this.getNewId(),
                 comentariosCreateUpdateDTO.getUser(),
                 comentariosCreateUpdateDTO.getPontoTuristico(),
-                comentariosCreateUpdateDTO.getComentario()
+                comentariosCreateUpdateDTO.getComentario(),
+                comentariosCreateUpdateDTO.getData()
         );
 
         this.listComentarios.add(novoComentarios);
@@ -47,6 +50,7 @@ public class ComentariosServiceImpl implements ComentariosService {
         comentarios.setUser(comentariosCreateUpdateDTO.getUser());
         comentarios.setPontoTuristico(comentariosCreateUpdateDTO.getPontoTuristico());
         comentarios.setComentario(comentariosCreateUpdateDTO.getComentario());
+        comentarios.setData(comentariosCreateUpdateDTO.getData());
 
         this.listComentarios.set(index, comentarios);
         return new ComentariosDTO(comentarios);
