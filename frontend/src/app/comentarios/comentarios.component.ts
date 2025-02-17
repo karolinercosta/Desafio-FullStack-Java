@@ -9,7 +9,7 @@ import { HttpService } from '../service/http-service.service';
   styleUrls: ['./comentarios.component.css']
 })
 export class ComentariosComponent implements OnInit {
-  title: string = "Comentários";
+  title: string = "Cadastro de Comentários";
   lsComentarios: Array<Comentario> = []
 
   constructor(

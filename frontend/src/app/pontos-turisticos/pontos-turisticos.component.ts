@@ -32,11 +32,6 @@ export class PontosTuristicosComponent implements OnInit {
   carregarActions(): Array<PoTableAction> {
     return [
       {
-        label: 'Visualizar',
-        icon: 'po-icon-delete',
-        action: (row: PontoTuristico) => { this.visualizarPontoTuristico(row.id) }
-      },
-      {
         label: 'Editar',
         icon: 'po-icon-edit',
         action: (row: PontoTuristico) => { this.navegarParaPontoTuristico(row.id) }
@@ -74,9 +69,6 @@ export class PontosTuristicosComponent implements OnInit {
 
   }
 
-  visualizarPontoTuristico(id: string): void {
-    this.router.navigate(['comentario', id], { relativeTo: this.activatedRoute });
-  }
 
   deletarCadastro(id: string): void {
     this.httpService.delete('pontos-turisticos/' + id).subscribe({
@@ -133,6 +125,7 @@ export class PontosTuristicosComponent implements OnInit {
       }
     });
   }
+
 }
 
 interface PontoTuristico {

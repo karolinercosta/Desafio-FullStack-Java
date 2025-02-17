@@ -1,42 +1,49 @@
-<po-page-detail 
-    [p-title]="title">
-	<form [formGroup]="formPontoTuristico">
-		<po-input 
-			class="po-sm-4 po-md-4 po-lg-3 po-xl-3"
-			formControlName="nome"
-			p-label="Nome">
-		</po-input>
-        <po-select 
-            class="po-sm-4 po-md-4 po-lg-3 po-xl-3"
-            formControlName="pais"
-            p-label="País"
-            [p-options]="lsTipo"></po-select>
-		<po-input 
-			class="po-sm-4 po-md-4 po-lg-3 po-xl-3"
-			formControlName="cidade"            
-			p-label="Cidade">
-		</po-input>
-
-        <po-input 
-            class="po-sm-4 po-md-4 po-lg-3 po-xl-3"
-            formControlName="melhorEstacao"            
-            p-label="Melhor Estação">
-        </po-input>
-        <po-textarea 
-            class="po-sm-12 po-md-12 po-lg-5 po-xl-5"
-            formControlName="resumo"
-            p-label="Resumo">
+<po-page-detail class="po-mt-2" [p-title]="title">
+    <form [formGroup]="formPontoTuristico">
+        <div class="po-row">
+            <po-input class="po-sm-12 po-md-6" formControlName="nome" p-label="Nome">
+            </po-input>
+            <po-select class="po-sm-12 po-md-6" formControlName="pais" p-label="País" [p-options]="lsTipo">
+            </po-select>
+        </div>
+        <div class="po-row">
+            <po-input class="po-sm-12 po-md-6" formControlName="cidade" p-label="Cidade">
+            </po-input>
+            <po-input class="po-sm-12 po-md-6" formControlName="melhorEstacao" p-label="Melhor Estação">
+            </po-input>
+        </div>
+        <po-textarea class="po-sm-12" formControlName="resumo" p-label="Resumo">
         </po-textarea>
-	</form>
-	
-	<div class="po-row po-pt-2" style="justify-content: flex-end;">
-		<po-button 
-			class="po-sm-3 po-md-3 po-lg-1 po-xl-1"
-			(p-click)="salvar()"
-			p-label="Salvar"></po-button>
-		<po-button 
-			class="po-sm-3 po-md-3 po-lg-1 po-xl-1"
-			(p-click)="voltar()"
-			p-label="Cancelar"></po-button>
-	</div>
+    </form>
+
+    <div class="po-row po-pt-2 po-mb-2" style="justify-content: flex-end;">
+        <po-button class="po-sm-12 po-md-3 po-lg-2 po-xl-1" (p-click)="salvar()" p-label="Salvar"></po-button>
+        <po-button class="po-sm-12 po-md-3 po-lg-2 po-xl-1" (p-click)="voltar()" p-label="Cancelar"></po-button>
+    </div>
+    <div class="po-mt-2">
+        <po-container>
+            <div *ngIf="lsComentarios.length == 0">
+                <b class="po-sm-12" style="margin: 10px;">Seja o primeiro a comentar!</b>
+                <po-button class="po-sm-2" style="margin: 10px;" p-label="Cadastrar Novo Comentário" (p-click)="navegarParaComentarios()">
+                </po-button>
+            </div>
+			<div *ngIf="lsComentarios.length > 0">
+				<po-button class="po-sm-2" style="margin: 10px;" p-label="Cadastrar Novo Comentário" (p-click)="navegarParaComentarios()">
+                </po-button>
+				<po-list-view class="po-row"  [p-items]="lsComentarios">
+					<ng-template p-list-view-content-template let-item>
+						<div class="po-row" style="width: 80vw;">
+							<po-avatar class="po-md-2" p-src="https://po-ui.io/assets/graphics/logo-po.png"></po-avatar>
+							<div class="po-md-10">
+								<po-info p-label="Usuário" [p-value]="item.user"></po-info>
+								<po-info p-label="Ponto Turístico" [p-value]="item.pontoTuristico"></po-info>
+								<po-info p-label="Comentário" [p-value]="item.comentario"></po-info>
+							</div>
+						</div>
+					</ng-template>
+				</po-list-view>
+			</div>
+
+        </po-container>
+    </div>
 </po-page-detail>

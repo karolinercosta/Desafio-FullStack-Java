@@ -11,6 +11,7 @@ public interface ComentariosService {
     public ComentariosDTO create(ComentariosCreateUpdateDTO ComentariosCreateUpdateDTO);
     public ComentariosDTO update(Long id, ComentariosCreateUpdateDTO ComentariosCreateUpdateDTO);
     public void delete(Long id);
+    public List<ComentariosDTO> getComentariosbyPontoTuristico(Long id);
     public ComentariosDTO getComentariosbyId(Long id);
     public List<ComentariosDTO> getAllComentarios();
 }

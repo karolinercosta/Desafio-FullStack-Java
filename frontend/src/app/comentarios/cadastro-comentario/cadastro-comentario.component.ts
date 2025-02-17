@@ -12,7 +12,7 @@ import { HttpService } from 'src/app/service/http-service.service';
 export class CadastroComentarioComponent implements OnInit {
   idComentario: string ;
   formComentario: FormGroup;
-  title: string = "Novo cadastro de Ponto Turístico";
+  title: string = "Novo Comentário";
   lsPontoTuristico: Array<{ value: string, label: string }> = [];
   constructor(private formBuilder: FormBuilder,
     private poNotification: PoNotificationService,
@@ -23,8 +23,8 @@ export class CadastroComentarioComponent implements OnInit {
 
     this.formComentario = this.formBuilder.group({
       user: ['', Validators.compose([Validators.required])],
+      pontoTuristico: ['', Validators.compose([Validators.required])],
       comentario: ['', Validators.compose([Validators.required])],
-      pontoturistico: ['', Validators.compose([Validators.required])],
       
     })
   }

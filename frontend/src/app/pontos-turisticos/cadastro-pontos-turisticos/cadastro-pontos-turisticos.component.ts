@@ -15,6 +15,7 @@ export class CadastroPontosTuristicosComponent implements OnInit {
   formPontoTuristico: FormGroup;
   title: string = "Novo cadastro de Ponto Turístico";
   lsTipo: Array<{ value: string, label: string }> = [];
+  lsComentarios: Array<Comentarios> = [];
   constructor(private formBuilder: FormBuilder,
     private poNotification: PoNotificationService,
     private route: ActivatedRoute,
@@ -35,6 +36,7 @@ export class CadastroPontosTuristicosComponent implements OnInit {
   ngOnInit(): void {
     this.idPontoTuristico = this.route.snapshot.paramMap.get('idPontoTuristico');
     this.buscaDadosPais();
+    this.buscaComentarios();
 
     if (this.idPontoTuristico !== null) {
       this.buscaDadosPontoTuristico();
@@ -125,4 +127,44 @@ export class CadastroPontosTuristicosComponent implements OnInit {
     });
   }
 
+
+// buscando os dados dos comentários
+buscaComentarios() {
+  if (this.idPontoTuristico) {
+    this.http.get(`comentarios/ponto-turistico/${this.idPontoTuristico}`).subscribe({
+      next: (resposta) => {
+        let registros: Array<{ id: string, user: string, pontoTuristico: string, comentario: string }> = [];
+        resposta.forEach(item => {
+          registros.push({
+            id: item.id,
+            user: item.user,
+            pontoTuristico: item.pontoTuristico,
+            comentario: item.comentario,
+          });
+        });
+
+        this.lsComentarios = [...registros];
+      },
+      error: (erro) => {
+        if (erro.status === 404) {
+          this.poNotification.warning("Nenhum comentário encontrado para este ponto turístico.");
+        } else {
+          this.poNotification.error("Erro ao buscar comentários: " + erro.message);
+        }
+      }
+    });
+  }
+}
+
+  navegarParaComentarios() {
+    this.router.navigate(['/comentario/cadastro'], { relativeTo: this.route });
+  }
+
+}
+
+interface Comentarios{
+	id: string,
+	user: string,
+	pontoTuristico: string,
+	comentario: string,
 }

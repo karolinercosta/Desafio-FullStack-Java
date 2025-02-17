@@ -1,15 +1,11 @@
 package br.com.juridico.totvs.fullstack.Backend.controller;
 
-import br.com.juridico.totvs.fullstack.Backend.domain.Comentarios;
 import br.com.juridico.totvs.fullstack.Backend.service.ComentariosService;
-import br.com.juridico.totvs.fullstack.Backend.service.ComentariosServiceImpl;
 import br.com.juridico.totvs.fullstack.Backend.service.dto.ComentariosCreateUpdateDTO;
 import br.com.juridico.totvs.fullstack.Backend.service.dto.ComentariosDTO;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -17,39 +13,43 @@ import java.util.List;
 @RestController()
 @RequestMapping("/comentarios")
 public class ComentariosController {
-    private final ComentariosService ComentariosService;
+    private final ComentariosService comentariosService;
 
-    public ComentariosController(ComentariosService ComentariosService){
-        this.ComentariosService = ComentariosService;
+    public ComentariosController(ComentariosService comentariosService){
+        this.comentariosService = comentariosService;
     }
 
     @PostMapping
-    @ResponseStatus( HttpStatus.CREATED )
-    public ComentariosDTO create(@RequestBody ComentariosCreateUpdateDTO ComentariosCreateUpdateDTO){
-        return this.ComentariosService.create(ComentariosCreateUpdateDTO);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ComentariosDTO create(@RequestBody ComentariosCreateUpdateDTO comentariosCreateUpdateDTO){
+        return this.comentariosService.create(comentariosCreateUpdateDTO);
     }
 
     @GetMapping
     public List<ComentariosDTO> getAll(){
-        return this.ComentariosService.getAllComentarios();
+        return this.comentariosService.getAllComentarios();
     }
 
-
+    @GetMapping("/ponto-turistico/{id}")
+    public ResponseEntity<List<ComentariosDTO>> getComentariosbyPontoTuristico(@PathVariable Long id) {
+        List<ComentariosDTO> comentarios = comentariosService.getComentariosbyPontoTuristico(id);
+        return ResponseEntity.ok(comentarios);
+    }
 
     @GetMapping("{idComentarios}")
     public ComentariosDTO getComentariosById(@PathVariable Long idComentarios){
-        return this.ComentariosService.getComentariosbyId(idComentarios);
+        return this.comentariosService.getComentariosbyId(idComentarios);
     }
 
     @DeleteMapping("{idComentarios}")
-    @ResponseStatus( HttpStatus.NO_CONTENT )
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long idComentarios){
-        this.ComentariosService.delete(idComentarios);
+        this.comentariosService.delete(idComentarios);
     }
 
     @PutMapping("{idComentarios}")
     public ComentariosDTO update(@PathVariable Long idComentarios,
-                          @RequestBody ComentariosCreateUpdateDTO ComentariosCreateUpdateDTO ){
-        return this.ComentariosService.update(idComentarios, ComentariosCreateUpdateDTO);
+                                 @RequestBody ComentariosCreateUpdateDTO comentariosCreateUpdateDTO){
+        return this.comentariosService.update(idComentarios, comentariosCreateUpdateDTO);
     }
 }

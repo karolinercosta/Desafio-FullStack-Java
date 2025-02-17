@@ -18,7 +18,7 @@ public class ComentariosServiceImpl implements ComentariosService {
     public ComentariosServiceImpl(){
         this.listComentarios = new ArrayList<>();
         this.listComentarios.add(new Comentarios(1L,
-                "User1", "Ponto Turistico 1", "Este é um comentário"
+                "User1", "1", "Este é um comentário"
         ));
     }
 
@@ -70,6 +70,19 @@ public class ComentariosServiceImpl implements ComentariosService {
     @Override
     public List<ComentariosDTO> getAllComentarios() {
         return this.listComentarios.stream()
+                .map(ComentariosDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ComentariosDTO> getComentariosbyPontoTuristico(Long id) {
+        List<Comentarios> comentarios = this.listComentarios.stream()
+                .filter(x -> Objects.equals(x.getPontoTuristico(), id.toString()))
+                .collect(Collectors.toList());
+        if (comentarios.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return comentarios.stream()
                 .map(ComentariosDTO::new)
                 .collect(Collectors.toList());
     }
